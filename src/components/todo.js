@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
+import store from '../store';
+import { actionAddTodo, actionDelTodo, actionInitTodo, actionInputChange } from '../store/actions';
 
 class Todo extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            inputValue: '',
-            list: [
-                'ok'
-            ]
-        }
+        this.state = store.getState()
+        this.handleStateChange = this.handleStateChange.bind(this)
+        this.unSubscribe = store.subscribe(this.handleStateChange)
+        
     }
     render() {
         return (
@@ -26,27 +26,37 @@ class Todo extends Component {
         )
     }
 
+    componentDidMount() {
+        store.dispatch(actionInitTodo())
+    }
+
+    handleStateChange() {
+        this.setState(store.getState())
+    }
+
     inputChange(e) {
-        this.setState({
-            inputValue: e.target.value
-        })
+        // this.setState({
+        //     inputValue: e.target.value
+        // })
+        store.dispatch(actionInputChange(e.target.value))
     }
 
     addTodoList() {
-        this.setState({
-            list: [this.state.inputValue, ...this.state.list],
-            inputValue: ''
-        })
+        // this.setState({
+        //     list: [this.state.inputValue, ...this.state.list],
+        //     inputValue: ''
+        // })
+        store.dispatch(actionAddTodo())
     }
 
     delTodo(index) {
-        const list = [...this.state.list];
-        list.splice(index, 1)
-        console.log('list', list);
-        this.setState({
-            list: list
-        })
+        store.dispatch(actionDelTodo(index))
     }
+
+
+
+
+    
 }
 
 export default Todo
