@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import store from '../store';
-import { actionAddTodo, actionDelTodo, actionInitTodo, actionInputChange } from '../store/actions';
+import { actionAddTodo, actionDelTodo, actionGetData, actionInputChange } from '../store/actions';
 
 class Todo extends Component {
     constructor(props) {
@@ -27,10 +27,11 @@ class Todo extends Component {
     }
 
     componentDidMount() {
-        store.dispatch(actionInitTodo())
+        store.dispatch(actionGetData())
     }
 
     handleStateChange() {
+        console.log('store change', store.getState());
         this.setState(store.getState())
     }
 

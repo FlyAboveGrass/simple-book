@@ -2,7 +2,8 @@ const ACTION_TYPE = {
     INPUT_VALUE_CHANGE: 'input_value_change',
     ADD_TODO_ITEM: 'add_todo_item',
     DEL_TODO_ITEM: 'del_todo_item',
-    INIT_TODO: 'init_todo'
+    INIT_TODO: 'init_todo',
+    GET_DATA: 'get_data'
 }
 
 
@@ -57,6 +58,12 @@ function actionDelTodo(index) {
     }
 }
 
+function actionGetData() {
+    return {
+        type: ACTION_TYPE.GET_DATA
+    }
+}
+
 
 export default ACTION_TYPE
 export {
@@ -64,5 +71,6 @@ export {
     actionAddTodo,
     actionDelTodo,
     actionInitTodo,
-    actionSetTodo
+    actionSetTodo,
+    actionGetData
 }
