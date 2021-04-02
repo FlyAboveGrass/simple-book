@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import store from '../store';
 import { actionAddTodo, actionDelTodo, actionGetData, actionInputChange, actionToggleTodo } from '../store/actions';
+import { todoAllSelector, todoDoneListSelector, todoListSelector } from '../store/selector';
 
 class Todo extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class Todo extends Component {
                 完成：
                 <ul>
                     {
-                        this.state.todoListDone && this.state.todoListDone.map((item, index) => <li key={ index }>{ item.value } <button onClick={ this.delTodo.bind(this, item.id) }>删除</button></li>)
+                        this.state.todoListDone && this.state.todoListDone.map((item, index) => <li key={ index } onClick={ this.toggleTodoState.bind(this, item.id)}>{ item.value } <button onClick={ this.delTodo.bind(this, item.id) }>删除</button></li>)
                     }
                 </ul>
             </div>
@@ -50,11 +51,12 @@ class Todo extends Component {
         console.log('state change', state);
         this.setState({
             state: state,
+            state2: todoAllSelector(state),
             inputValue: state.inputValue,
-            todoList: state.list.filter(item => !item.done),
-            todoListDone: state.list.filter(item => item.done)
+            todoList: todoListSelector(state),
+            todoListDone: todoDoneListSelector(state)
         })
-        console.log(this.state.todoList);
+        console.log(this.state.state && this.state.state.length, this.state.state2 && this.state.state.length);
     }
 
     inputChange(e) {
