@@ -9,7 +9,11 @@ async function getData() {
                 code: 0,
                 data: {
                     inputValue: 'yibu',
-                    list: ['hello', 'dear', 'p']
+                    list: [
+                        { done: false, value: '1', id: Date.now()},
+                        { done: false, value: '2', id: Date.now()+1},
+                        { done: true, value: '13', id: Date.now()+2}
+                    ]
                 }
             })
         })
@@ -31,7 +35,6 @@ function* handleData() {
     try {
         let res = yield getData()
         let setAction = actionSetTodo(res.data)
-        console.log('set action', setAction);
         yield put(setAction)
     } catch (e) {
         console.log(e)

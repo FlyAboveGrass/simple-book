@@ -1,8 +1,8 @@
 import ACTION_TYPE from "./actions"
 
 const defaultState = {
-    inputValue: '12',
-    list: [1,2,3]
+    inputValue: '',
+    list: []
 }
 
 const reducerFn = (state = defaultState, actions) => {
@@ -11,7 +11,7 @@ const reducerFn = (state = defaultState, actions) => {
     }
     if(actions.type === ACTION_TYPE.ADD_TODO_ITEM) {
         let { list, inputValue } = state;
-        list.unshift(inputValue)
+        list.unshift({ value: inputValue, done: false, id: Date.now() })
         inputValue = ''
         return {
             list,
@@ -20,11 +20,20 @@ const reducerFn = (state = defaultState, actions) => {
     }
     if(actions.type === ACTION_TYPE.DEL_TODO_ITEM) {
         let { list } = state;
-        list.splice(actions.index, 1)
+        list.splice(list.findIndex((item) => item.id === actions.id), 1)
         return { ...state, list }
     }
     if(actions.type === ACTION_TYPE.INIT_TODO) {
         return { ...actions.state }
+    }
+    if(actions.type === ACTION_TYPE.TOGGLE_TODO) {
+        const { list } = state;
+        list.forEach(item => {
+            if(item.id === actions.id) {
+                item.done = !item.done
+            }
+        })
+        return { ...state, list }
     }
     return state
 }

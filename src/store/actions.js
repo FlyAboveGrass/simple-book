@@ -3,7 +3,8 @@ const ACTION_TYPE = {
     ADD_TODO_ITEM: 'add_todo_item',
     DEL_TODO_ITEM: 'del_todo_item',
     INIT_TODO: 'init_todo',
-    GET_DATA: 'get_data'
+    GET_DATA: 'get_data',
+    TOGGLE_TODO: 'toggle_todo'
 }
 
 
@@ -51,16 +52,23 @@ async function getData() {
     })
 }
 
-function actionDelTodo(index) {
+function actionDelTodo(id) {
     return {
         type: ACTION_TYPE.DEL_TODO_ITEM,
-        index
+        id
     }
 }
 
 function actionGetData() {
     return {
         type: ACTION_TYPE.GET_DATA
+    }
+}
+
+function actionToggleTodo(id) {
+    return {
+        type: ACTION_TYPE.TOGGLE_TODO,
+        id
     }
 }
 
@@ -72,5 +80,6 @@ export {
     actionDelTodo,
     actionInitTodo,
     actionSetTodo,
-    actionGetData
+    actionGetData,
+    actionToggleTodo
 }
