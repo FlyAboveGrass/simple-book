@@ -1,9 +1,16 @@
 import Header from "./common/header";
+import { Provider } from 'react-redux'
+import { Component } from "react";
+import store from './store'
 
-function App() {
-  return (
-    <Header></Header>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Provider store={ store }>
+        <Header></Header>
+      </Provider>
+    )
+  }
 }
 
 export default App;
