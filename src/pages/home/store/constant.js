@@ -1,0 +1,4 @@
+export const GET_HOME_INFO = 'GET_HOME_INFO'
+export const CHANGE_HOME_INFO = 'CHANGE_HOME_INFO'
+export const ADD_HOME_LIST = 'ADD_HOME_LIST'
+export const TOGGLE_SCROLL_TOP = 'TOGGLE_SCROLL_TOP'
